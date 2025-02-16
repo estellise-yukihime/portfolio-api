@@ -1,0 +1,5 @@
+@Host = https://localhost:7121
+
+GET {{Host}}/weatherforecast/
+Accept: application/json
+###
