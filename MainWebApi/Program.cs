@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Asp.Versioning;
+using MainWebApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
@@ -45,6 +46,8 @@ builder.Services.AddApiVersioning(x =>
 });
 
 builder.Services.AddHealthChecks();
+
+builder.Services.AddFluentMigration();
 
 var app = builder.Build();
 
