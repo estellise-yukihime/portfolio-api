@@ -1,4 +1,6 @@
 using FluentMigrator.Runner;
+using MainWebApi.ExternalServices.Persistence;
+using Microsoft.Data.Sqlite;
 
 namespace MainWebApi;
 
@@ -14,6 +16,13 @@ public static class ProjectExtensions
                     .ScanIn(typeof(Program).Assembly).For.Migrations();
             })
             .AddLogging(x => x.AddFluentMigratorConsole());
+
+        return services;
+    }
+
+    public static IServiceCollection AddSqlDb(this IServiceCollection services)
+    {
+        services.AddSingleton<IDbConnection<SqliteConnection>, SqliteConnectionSource>();
 
         return services;
     }
