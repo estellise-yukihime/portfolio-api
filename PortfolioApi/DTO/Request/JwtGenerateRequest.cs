@@ -1,4 +1,4 @@
-namespace MainWebApi.DTO.Request;
+namespace PortfolioApi.DTO.Request;
 
 public class JwtGenerateRequest
 {

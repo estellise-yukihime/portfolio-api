@@ -2,13 +2,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Asp.Versioning;
-using MainWebApi.DTO.Request;
-using MainWebApi.DTO.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using PortfolioApi.DTO.Request;
+using PortfolioApi.DTO.Response;
 
-namespace MainWebApi.Controllers;
+namespace PortfolioApi.Controllers.Token;
 
 [ApiController]
 [ApiVersion(1)]

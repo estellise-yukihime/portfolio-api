@@ -1,6 +1,6 @@
 using System.Text.Json;
 using Asp.Versioning;
-using MainWebApi;
+using PortfolioApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
@@ -51,13 +51,10 @@ builder.Services.AddFluentMigration();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment()
-    || app.Environment.IsStaging()
-    || app.Environment.IsProduction())
-{
-    app.MapOpenApi();
-    app.MapScalarApiReference();
-}
+// note:
+// - we will show the api documentation even in production
+app.MapOpenApi();
+app.MapScalarApiReference();
 
 app.UseHttpsRedirection();
 app.MapHealthChecks("/heath_checks");

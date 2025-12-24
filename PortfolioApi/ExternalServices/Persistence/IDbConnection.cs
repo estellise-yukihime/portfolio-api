@@ -1,4 +1,4 @@
-namespace MainWebApi.ExternalServices.Persistence;
+namespace PortfolioApi.ExternalServices.Persistence;
 
 public interface IDbConnection<out T>
 {

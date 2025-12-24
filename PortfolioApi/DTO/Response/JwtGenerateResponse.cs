@@ -1,4 +1,4 @@
-namespace MainWebApi.DTO.Response;
+namespace PortfolioApi.DTO.Response;
 
 public class JwtGenerateResponse
 {

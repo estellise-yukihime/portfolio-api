@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MainWebApi.Controllers;
+namespace PortfolioApi.Controllers;
 
 [ApiVersion(1)]
 [ApiVersion(2)]
