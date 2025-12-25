@@ -9,4 +9,8 @@ public class Project
     public string? ImgUrl { get; set; }
     public DateTime? CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
+
+    public List<ProjectImage> Imgs { get; set; } = [];
+    public List<ProjectTechnology> Techs { get; set; } = [];
+
 }

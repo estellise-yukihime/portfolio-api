@@ -9,7 +9,6 @@ public static class ProgramExtensions
 {
     extension(IServiceCollection services)
     {
-    
         // note:
         //  we are using FluentMigrator as a migration tool to generate our database
         public IServiceCollection AddFluentMigration()

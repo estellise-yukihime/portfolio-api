@@ -3,6 +3,7 @@
 * .NET
 * FluentMigrations
 * SQLite
+* Dapper
 
 ## Authentication
 
