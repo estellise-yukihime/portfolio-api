@@ -1,6 +1,6 @@
 namespace PortfolioApi.Entities;
 
-public class ProjectTechnology
+public class ProfileProjectTechnology
 {
     public int Id { get; set; }
     public int ProjectId { get; set; }

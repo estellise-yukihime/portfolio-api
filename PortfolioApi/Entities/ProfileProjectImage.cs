@@ -1,6 +1,6 @@
 namespace PortfolioApi.Entities;
 
-public class ProjectImage
+public class ProfileProjectImage
 {
     public int Id { get; set; }
     public int ProjectId { get; set; }

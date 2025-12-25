@@ -29,7 +29,7 @@ public class QueryProfile : IQueryProfile
                            """;
 
         var profiles =
-            await connection.QueryAsync<Profile, Project, ProjectImage, ProjectTechnology, Profile>(sql,
+            await connection.QueryAsync<Profile, ProfileProject, ProfileProjectImage, ProfileProjectTechnology, Profile>(sql,
                 (profile, project, projectImage, projectTechnology) =>
                 {
                     project.Imgs.Add(projectImage);
