@@ -22,9 +22,8 @@ public class DefaultProfileService : IProfileService
     public async Task<ProducesEntity<Profile>> InsertProfile(Profile profile)
     {
         // add guards on profile
+        await _queryProfile.Insert(profile);
 
-        var value = await _queryProfile.Insert(profile);
-
-        return new ProducesEntityGood<Profile>(value);
+        return new ProducesEntityGood<Profile>(profile);
     }
 }
