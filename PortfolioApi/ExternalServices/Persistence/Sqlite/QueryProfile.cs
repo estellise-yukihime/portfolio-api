@@ -29,65 +29,63 @@ public class QueryProfile : IQueryProfile
                            """;
 
         var profiles =
-            await connection.QueryAsync<Profile, ProfileProject, ProfileProjectImage, ProfileProjectTechnology, Profile>(sql,
-                (profile, project, projectImage, projectTechnology) =>
-                {
-                    project.Imgs.Add(projectImage);
-                    project.Techs.Add(projectTechnology);
+            await connection
+                .QueryAsync<Profile, ProfileProject, ProfileProjectImage, ProfileProjectTechnology, Profile>(sql,
+                    (profile, project, projectImage, projectTechnology) =>
+                    {
+                        project.Imgs.Add(projectImage);
+                        project.Techs.Add(projectTechnology);
 
-                    profile.Projects.Add(project);
+                        profile.Projects.Add(project);
 
-                    return profile;
-                },
-                new { UserId = userId },
-                splitOn: "ProjectId,ProjectImageId,ProjectTechnologyId");
+                        return profile;
+                    },
+                    new { UserId = userId },
+                    splitOn: "ProjectId,ProjectImageId,ProjectTechnologyId");
 
         return profiles.ToList();
     }
 
-    public async Task<Profile> Insert(Profile profile)
+    public async Task Insert(Profile profile)
     {
         await using var connection = _dbConnection.OpenConnection();
 
-        const string profileSql = """
-                                  insert into Profile (UserId, ImgUrl, Summary, FirstName, LastName, Email, PhoneNumber)
-                                  values (@UserId, @ImgUrl, @Summary, @FirstName, @LastName, @Email, @PhoneNumber);
-                                  select last_insert_rowid();
-                                  """;
+        const string sql = """
+                           insert into Profile (UserId, ImgUrl, Summary, FirstName, LastName, Email, PhoneNumber)
+                           values (@UserId, @ImgUrl, @Summary, @FirstName, @LastName, @Email, @PhoneNumber);
+                           select last_insert_rowid();
+                           """;
 
-        profile.Id = await connection.ExecuteScalarAsync<int>(profileSql, profile);
+        profile.Id = await connection.ExecuteScalarAsync<int>(sql, profile);
+    }
 
-        foreach (var project in profile.Projects)
-        {
-            project.ProfileId = profile.Id;
-            
-            const string projectSql = """
-                                      insert into Project (ProfileId, Title, Description, ImgUrl, CreatedAt, UpdatedAt)
-                                      values (@ProfileId, @Title, @Description, @ImgUrl, @CreatedAt, @UpdatedAt);
-                                      select last_insert_rowid();
-                                      """;
+    public async Task Update(Profile profile)
+    {
+        await using var connection = _dbConnection.OpenConnection();
 
-            project.Id = await connection.ExecuteScalarAsync<int>(projectSql, project);
+        const string sql = """
+                           update Profile
+                           set Summary = @Summary, 
+                               FirstName = @FirstName, 
+                               LastName = @LastName, 
+                               Email = @Email, 
+                               PhoneNumber = @PhoneNumber,
+                               UpdatedAt = @UpdatedAt
+                           where Id = @Id
+                           """;
+        
+        await connection.ExecuteAsync(sql, profile);
+    }
 
-            foreach (var img in project.Imgs)
-            {
-                img.ProjectId = project.Id;
-               
-                const string imgSql = "insert into ProjectImage (ProjectId, ImgUrl) values (@ProjectId, @ImgUrl)";
-                
-                await connection.ExecuteAsync(imgSql, img);
-            }
+    public async Task Delete(int id)
+    {
+        await using var connection = _dbConnection.OpenConnection();
 
-            foreach (var tech in project.Techs)
-            {
-                tech.ProjectId = project.Id;
-                
-                const string techSql = "insert into ProjectTechnology (ProjectId, Tech) values (@ProjectId, @Tech)";
-                
-                await connection.ExecuteAsync(techSql, tech);
-            }
-        }
-
-        return profile;
+        const string sql = """
+                           delete from Profile
+                           where Id = @Id
+                           """;
+        
+        await connection.ExecuteAsync(sql, new { Id = id });
     }
 }
