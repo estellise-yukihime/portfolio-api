@@ -1,0 +1,101 @@
+@startuml
+
+' hide the spot
+' hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "User" as user {
+    *id : int <<generated>> <<primary key>>
+    --
+}
+
+entity "Profile" as profile {
+    *id : int <<generated>> <<primary key>>
+    --
+    *userId : int <<FK>>
+}
+
+entity "ProfileEducation" as pEducation {
+    *id : int <<generated>> <<primary key>>
+    --
+    *profileId : int <<FK>>
+    *schoolId : int <<FK>>
+}
+
+entity "ProfileCareer" as pWork {
+    *id : int <<generated>> <<primary key>>
+    --
+    *profileId : <<FK>>
+    *companyId : <<FK>>
+}
+
+entity "ProfileCareerProject" as pWorkProj {
+    *id : int <<generated>>  <<primary key>>
+    -- 
+    profileCareerId : <<FK>>
+    projectId : <<FK>>
+}
+
+entity "ProfileLanguage" as pLang {
+    *id : int <<generated>> <<primary key>>
+    --
+    *profileId : int <<FK>>
+}
+
+entity "ProfileSkills" as pSkills {
+    *id : int <<generated>> <<primary key>>
+    --
+    *profileId : int <<FK>>
+}
+
+entity "ProfileProject" as pProj {
+    *id : int <<generated>> <<primary key>>
+    --
+    *profileId : int <<FK>>
+}
+
+entity "ProfileProjectTechnology" as pProjTech {
+    *id : int <<generated>> <<primary key>>
+    --
+    *projectId : int <<FK>>
+}
+
+entity "ProfileProjectImg" as pProjImg {
+    *id : int <<generated>> <<primary key>>
+    --
+    *projectId : int <<FK>>
+}
+
+entity "Company" as company {
+    *id : int <<generated>> <<primary key>>
+}
+
+entity "School" as school {
+    *id : int <<generated>> <<primary key>>
+}
+
+
+user ||..|{ profile
+
+profile ||..o{ pWork
+
+profile ||..o{ pProj
+
+pProj ||..|{ pProjImg
+pProj ||..|{ pProjTech
+
+pWork ||..|| company
+pWork |o..pWorkProj
+
+pProj }o..pWorkProj
+
+profile ||..o{ pSkills
+profile ||..o{ pLang
+
+profile ||..o{ pEducation
+
+pEducation ||..|| school
+
+@enduml
