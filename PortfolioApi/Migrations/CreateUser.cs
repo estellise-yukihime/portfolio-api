@@ -20,7 +20,6 @@ public class CreateUser : Migration
             .WithColumn("DateOfBirth").AsString(256).Nullable()
             .WithColumn("CreatedAt").AsString(256).Nullable()
             .WithColumn("UpdatedAt").AsString(256).Nullable();
-
     }
 
     public override void Down()

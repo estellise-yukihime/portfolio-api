@@ -4,12 +4,13 @@ using PortfolioApi.Services.DefaultServices;
 
 namespace PortfolioApi.Services.DbOperationCheck;
 
-public class CheckOperationUser : IUserService
+public class CheckReadOperationUser : IUserService
 {
     private readonly DefaultUserService _defaultUserService;
     private readonly IQueryUserEnabledDbOperation _queryUserEnabledDbOperation;
 
-    public CheckOperationUser(DefaultUserService defaultUserService, IQueryUserEnabledDbOperation queryUserEnabledDbOperation)
+    public CheckReadOperationUser(DefaultUserService defaultUserService,
+        IQueryUserEnabledDbOperation queryUserEnabledDbOperation)
     {
         _defaultUserService = defaultUserService;
         _queryUserEnabledDbOperation = queryUserEnabledDbOperation;
