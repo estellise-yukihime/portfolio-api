@@ -1,0 +1,10 @@
+root = true
+
+[*.cs]
+# Disable simplified 'new()' — require explicit type
+csharp_style_implicit_object_creation_when_type_is_apparent = false
+dotnet_diagnostic.IDE0090.severity = error
+
+# Disable primary constructors
+csharp_style_prefer_primary_constructors = false
+dotnet_diagnostic.IDE0290.severity = error
