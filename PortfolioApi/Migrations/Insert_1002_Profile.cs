@@ -11,6 +11,7 @@ public class Insert_1002_Profile : Migration
         Insert.IntoTable("Profile")
             .Row(new
             {
+                ExternalId = Guid.NewGuid(),
                 UserId = 1,
                 FirstName = "Carlo",
                 LastName = "Caballero",
