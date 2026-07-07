@@ -29,10 +29,10 @@ public class JwtGeneratorController : ControllerBase
             var set = permissions.Split(" ")
                 .Select(x => new Claim("permissions", x))
                 .ToList();
-            
+
             permissionsClaims = set;
         }
-        
+
         var signingCredential = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF32.GetBytes("portfolio")), SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
             issuer: "portfolio",
@@ -40,10 +40,10 @@ public class JwtGeneratorController : ControllerBase
             expires: DateTime.UtcNow.AddHours(1),
             claims: permissionsClaims,
             signingCredentials: signingCredential);
-        
+
         var tokenString = new JwtSecurityTokenHandler()
             .WriteToken(token);
-        
+
         return Ok(new JwtGenerateResponse
         {
             TokenType = "Bearer",

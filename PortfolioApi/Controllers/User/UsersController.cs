@@ -25,7 +25,7 @@ public class UsersController : ControllerBase
     {
         // ensure email is always apply.estellise.caballero@gmail.com
         email = "apply.estellise.caballero@gmail.com";
-        
+
         var user = await _userService.FindUserFromEmail(email);
 
         if (user.Success is false)

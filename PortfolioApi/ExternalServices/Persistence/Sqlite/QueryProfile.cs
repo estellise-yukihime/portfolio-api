@@ -15,35 +15,36 @@ public class QueryProfile : IQueryProfile
 
     public async Task<List<Profile>> ListFromUser(string userId)
     {
-        await using var connection = _dbConnection.OpenConnection();
-
-        const string sql = """
-                           select * from Profile prof
-                               inner join Project proj
-                                   on prof.Id = proj.ProfileId
-                               inner join ProjectImage projImg
-                                   on proj.Id = projImg.ProjectId
-                               inner join ProjectTechnology projTech
-                                   on proj.Id = projImg.ProjectTechnologyId
-                           where prof.UserId = @UserId
-                           """;
-
-        var profiles =
-            await connection
-                .QueryAsync<Profile, ProfileProject, ProfileProjectImage, ProfileProjectTechnology, Profile>(sql,
-                    (profile, project, projectImage, projectTechnology) =>
-                    {
-                        project.Imgs.Add(projectImage);
-                        project.Techs.Add(projectTechnology);
-
-                        profile.Projects.Add(project);
-
-                        return profile;
-                    },
-                    new { UserId = userId },
-                    splitOn: "ProjectId,ProjectImageId,ProjectTechnologyId");
-
-        return profiles.ToList();
+        return [];
+        // await using var connection = _dbConnection.OpenConnection();
+        //
+        // const string sql = """
+        //                    select * from Profile prof
+        //                        inner join Project proj
+        //                            on prof.Id = proj.ProfileId
+        //                        inner join ProjectImage projImg
+        //                            on proj.Id = projImg.ProjectId
+        //                        inner join ProjectTechnology projTech
+        //                            on proj.Id = projImg.ProjectTechnologyId
+        //                    where prof.UserId = @UserId
+        //                    """;
+        //
+        // var profiles =
+        //     await connection
+        //         .QueryAsync<Profile, ProfileProject, ProfileProjectImage, ProfileProjectTechnology, Profile>(sql,
+        //             (profile, project, projectImage, projectTechnology) =>
+        //             {
+        //                 project.Imgs.Add(projectImage);
+        //                 project.Techs.Add(projectTechnology);
+        //
+        //                 profile.Projects.Add(project);
+        //
+        //                 return profile;
+        //             },
+        //             new { UserId = userId },
+        //             splitOn: "ProjectId,ProjectImageId,ProjectTechnologyId");
+        //
+        // return profiles.ToList();
     }
 
     public async Task Insert(Profile profile)
