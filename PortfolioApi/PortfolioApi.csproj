@@ -9,20 +9,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Asp.Versioning.Http" Version="8.1.0"/>
-        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0"/>
-        <PackageReference Include="Dapper" Version="2.1.66"/>
-        <PackageReference Include="FLuentMigrator" Version="7.2.0"/>
-        <PackageReference Include="FluentMigrator.Runner" Version="7.2.0"/>
-        <PackageReference Include="FluentMigrator.Runner.SQLite" Version="7.2.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1"/>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1"/>
-        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.1"/>
+        <PackageReference Include="Asp.Versioning.Http" Version="10.0.0" />
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="10.0.0" />
+        <PackageReference Include="Dapper" Version="2.1.79" />
+        <PackageReference Include="FLuentMigrator" Version="8.0.1" />
+        <PackageReference Include="FluentMigrator.Runner" Version="8.0.1" />
+        <PackageReference Include="FluentMigrator.Runner.SQLite" Version="8.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.9" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.9" />
         <PackageReference Include="Roslynator.Analyzers" Version="4.15.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Scalar.AspNetCore" Version="2.11.10"/>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.16.10" />
     </ItemGroup>
 
 </Project>
