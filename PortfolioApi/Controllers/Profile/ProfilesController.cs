@@ -6,7 +6,4 @@ namespace PortfolioApi.Controllers.Profile;
 [ApiVersion(1)]
 [ApiController]
 [Route("api/v{version:apiVersion}/profiles")]
-public class ProfilesController
-{
-    
-}
+public class ProfilesController : ControllerBase;
