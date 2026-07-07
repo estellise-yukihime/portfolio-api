@@ -2,6 +2,7 @@ using Asp.Versioning;
 using FluentMigrator.Runner;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.Logging.Console;
 using Microsoft.IdentityModel.Tokens;
 using PortfolioApi.ExternalServices.Persistence;
 using PortfolioApi.ExternalServices.Persistence.Sqlite;
@@ -12,6 +13,21 @@ public static class ProgramExtensions
 {
     extension(IServiceCollection services)
     {
+        public IServiceCollection AddSimpleLogging()
+        {
+            services.AddLogging(x =>
+            {
+                x.AddSimpleConsole(c =>
+                {
+                    c.IncludeScopes = true;
+                    c.TimestampFormat = "yyyy-MM-dd HH:mm:ss ";
+                    c.ColorBehavior = LoggerColorBehavior.Enabled;
+                });
+            });
+
+            return services;
+        }
+
         public IServiceCollection AddUrlVersioning()
         {
             services.AddApiVersioning(x =>
@@ -50,18 +66,15 @@ public static class ProgramExtensions
             return services;
         }
 
-        // note:
-        //  we are using FluentMigrator as a migration tool to generate our database
         public IServiceCollection AddFluentMigration()
         {
             services.AddFluentMigratorCore()
                 .ConfigureRunner(x =>
                 {
-                    x.AddSQLite()
+                    x.AddSQLite(compatibilityMode: CompatibilityMode.LOOSE)
                         .WithGlobalConnectionString("Data Source=main.db")
                         .ScanIn(typeof(Program).Assembly).For.Migrations();
-                })
-                .AddLogging(x => x.AddFluentMigratorConsole());
+                });
 
             return services;
         }
