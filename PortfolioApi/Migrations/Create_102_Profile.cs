@@ -1,0 +1,34 @@
+using FluentMigrator;
+
+namespace PortfolioApi.Migrations;
+
+[Migration(102, "Create profile table")]
+public class Create_102_Profile : Migration
+{
+    public override void Up()
+    {
+        Create.Table("Profile")
+            .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+            .WithColumn("UserId").AsInt32().NotNullable()
+            .WithColumn("FirstName").AsString(256).Nullable()
+            .WithColumn("LastName").AsString(256).Nullable()
+            .WithColumn("Email").AsString(256).Nullable()
+            .WithColumn("Photo").AsString(256).Nullable()
+            .WithColumn("Title").AsString(256).Nullable()
+            .WithColumn("State").AsString(256).Nullable()
+            .WithColumn("Summary").AsString(int.MaxValue).Nullable()
+            .WithColumn("CreatedAt").AsDateTime2().NotNullable()
+            .WithColumn("UpdatedAt").AsDateTime2().NotNullable();
+
+        Create.ForeignKey("FK_Profile_User")
+            .FromTable("Profile").ForeignColumn("UserId")
+            .ToTable("User").PrimaryColumn("Id");
+    }
+
+    public override void Down()
+    {
+        Delete.ForeignKey("FK_Profile_User")
+            .OnTable("Profile");
+        Delete.Table("Profile");
+    }
+}
