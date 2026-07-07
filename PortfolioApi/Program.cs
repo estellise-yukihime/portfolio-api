@@ -14,11 +14,13 @@ builder.Services.AddControllers()
         x.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
         x.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
     });
+builder.Services.AddHealthChecks();
 builder.Services.AddSimpleLogging();
-
 builder.Services.AddUrlVersioning();
 builder.Services.AddFluentMigration();
-builder.Services.AddHealthChecks();
+builder.Services.AddSqlDb();
+builder.Services.AddDefaultServices();
+builder.Services.AddExternalServicesPersistence();
 
 var app = builder.Build();
 

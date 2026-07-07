@@ -11,6 +11,6 @@ public class Profile
     public string? Title { get; set; }
     public string? State { get; set; }
     public string? Summary { get; set; }
-    public DateTimeOffset CreatedAt { get; set; }
-    public DateTimeOffset UpdatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }
