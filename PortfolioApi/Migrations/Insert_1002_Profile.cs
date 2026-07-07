@@ -9,7 +9,7 @@ public class Insert_1002_Profile : Migration
     public override void Up()
     {
         Insert.IntoTable("Profile")
-            .Row(new Profile
+            .Row(new
             {
                 UserId = 1,
                 FirstName = "Carlo",

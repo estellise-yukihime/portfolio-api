@@ -10,19 +10,19 @@ public class InsertSocial_1004 : Migration
     {
         Insert.IntoTable("ProfileSocial")
             .Rows([
-                new ProfileSocial
+                new
                 {
                     ProfileId = 1,
                     Name = "LinkedIn",
                     Link = "www.linkedin.com/in/carlocaballero"
                 },
-                new ProfileSocial
+                new
                 {
                     ProfileId = 1,
                     Name = "GitHub",
                     Link = "https://github.com/estellise-yukihime"
                 },
-                new ProfileSocial
+                new
                 {
                     ProfileId = 1,
                     Name = "Email",

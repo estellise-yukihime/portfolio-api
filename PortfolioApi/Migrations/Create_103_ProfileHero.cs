@@ -8,7 +8,7 @@ public class Create_103_ProfileHero : Migration
     public override void Up()
     {
         Create.Table("ProfileHero")
-            .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+            .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
             .WithColumn("ProfileId").AsInt32().NotNullable()
             .WithColumn("Head").AsString(1024).Nullable()
             .WithColumn("Text").AsString(1024).Nullable();

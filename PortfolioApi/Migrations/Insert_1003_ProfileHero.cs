@@ -9,7 +9,7 @@ public class Insert_1003_ProfileHero : Migration
     public override void Up()
     {
         Insert.IntoTable("ProfileHero")
-            .Row(new ProfileHero
+            .Row(new
             {
                 ProfileId = 1,
                 Head = "I build <<text-primary,\"scalable,\">> <<text-secondary,\"reliable,\">> and <<text-accent,\"maintainable\">> systems",
@@ -19,6 +19,7 @@ public class Insert_1003_ProfileHero : Migration
 
     public override void Down()
     {
-        throw new NotImplementedException();
+        Delete.FromTable("ProfileHero")
+            .Row(new { ProfileId = 1 });
     }
 }

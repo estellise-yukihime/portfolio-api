@@ -8,7 +8,7 @@ public class Create_104_ProfileSocial : Migration
     public override void Up()
     {
         Create.Table("ProfileSocial")
-            .WithColumn("Id").AsInt32().PrimaryKey().Identity()
+            .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
             .WithColumn("ProfileId").AsInt32().NotNullable()
             .WithColumn("Name").AsString(256).Nullable()
             .WithColumn("Link").AsString(256).Nullable();

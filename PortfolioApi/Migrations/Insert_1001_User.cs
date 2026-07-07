@@ -10,7 +10,7 @@ public class Insert_1001_User : Migration
     public override void Up()
     {
         Insert.IntoTable("User")
-            .Row(new User
+            .Row(new
             {
                 Email = "estellise.caballero@gmail.com",
                 CreatedAt = DateTime.Now,
