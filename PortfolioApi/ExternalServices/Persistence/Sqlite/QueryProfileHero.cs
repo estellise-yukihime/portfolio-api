@@ -24,6 +24,6 @@ public class QueryProfileHero : IQueryProfileHero
                            where Profile.ExternalId = @ExternalId
                            """;
 
-        return await connection.QueryFirstOrDefaultAsync<ProfileHero>(sql, new { ExternalId = uuid });
+        return await connection.QueryFirstOrDefaultAsync<ProfileHero>(sql, new { ExternalId = uuid.ToString() });
     }
 }

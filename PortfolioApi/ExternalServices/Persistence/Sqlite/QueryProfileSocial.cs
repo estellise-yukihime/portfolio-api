@@ -24,7 +24,7 @@ public class QueryProfileSocial : IQueryProfileSocial
                            where Profile.ExternalId = @ExternalId
                            """;
 
-        var profileSocials = await connection.QueryAsync<ProfileSocial>(sql, new { ExternalId = uuid });
+        var profileSocials = await connection.QueryAsync<ProfileSocial>(sql, new { ExternalId = uuid.ToString() });
 
         return profileSocials.AsList();
     }

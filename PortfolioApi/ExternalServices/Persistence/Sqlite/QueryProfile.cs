@@ -23,7 +23,7 @@ public class QueryProfile : IQueryProfile
                            where ExternalId = @ExternalId
                            """;
 
-        return await connection.QueryFirstOrDefaultAsync<Profile>(sql, new { ExternalId = uuid });
+        return await connection.QueryFirstOrDefaultAsync<Profile>(sql, new { ExternalId = uuid.ToString() });
     }
 
     public async Task Insert(Profile profile)
