@@ -13,6 +13,19 @@ public class QueryProfile : IQueryProfile
         _dbConnection = dbConnection;
     }
 
+    public async Task<Profile?> FindFromExternalId(Guid uuid)
+    {
+        await using var connection = _dbConnection.OpenConnection();
+
+        const string sql = """
+                           select Id, UserId, FirstName, LastName, Email, Photo, Title, State, Summary, CreatedAt, UpdatedAt
+                           from Profile
+                           where ExternalId = @ExternalId
+                           """;
+
+        return await connection.QueryFirstOrDefaultAsync<Profile>(sql, new { ExternalId = uuid });
+    }
+
     public async Task Insert(Profile profile)
     {
         await using var connection = _dbConnection.OpenConnection();
