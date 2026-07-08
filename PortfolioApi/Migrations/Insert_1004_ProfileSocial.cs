@@ -14,7 +14,7 @@ public class InsertSocial_1004 : Migration
                 {
                     ProfileId = 1,
                     Name = "LinkedIn",
-                    Link = "www.linkedin.com/in/carlocaballero"
+                    Link = "https://linkedin.com/in/carlocaballero"
                 },
                 new
                 {
