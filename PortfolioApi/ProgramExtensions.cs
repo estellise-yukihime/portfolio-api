@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using FluentMigrator.Runner;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.IdentityModel.Tokens;
@@ -25,10 +26,20 @@ public static class ProgramExtensions
                 });
             });
 
+            services.AddHttpLogging(x =>
+            {
+                x.LoggingFields = HttpLoggingFields.Duration
+                                  | HttpLoggingFields.Request
+                                  | HttpLoggingFields.RequestQuery
+                                  | HttpLoggingFields.Response;
+                x.RequestBodyLogLimit = 8192;
+                x.ResponseBodyLogLimit = 8192;
+            });
+
             return services;
         }
 
-        public IServiceCollection AddUrlVersioning()
+        public IServiceCollection AddSimpleVersioning()
         {
             services.AddApiVersioning(x =>
             {

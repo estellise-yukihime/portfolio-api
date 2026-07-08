@@ -14,23 +14,42 @@ builder.Services.AddControllers()
         x.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
         x.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.SnakeCaseLower;
     });
-builder.Services.AddHealthChecks();
+
+builder.Services.AddCors(x =>
+{
+    x.AddDefaultPolicy(c =>
+    {
+        // c.WithOrigins(builder.Configuration.GetSection("Cors:Origins").Get<string[]>()!)
+        //     .AllowAnyHeader()
+        //     .AllowAnyMethod();
+
+        c.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 builder.Services.AddSimpleLogging();
-builder.Services.AddUrlVersioning();
+builder.Services.AddSimpleVersioning();
 builder.Services.AddFluentMigration();
 builder.Services.AddSqlDb();
 builder.Services.AddDefaultServices();
 builder.Services.AddExternalServicesPersistence();
 
+// health checks
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
+
+app.UseHttpLogging();
+app.UseHttpsRedirection();
+app.UseCors();
 
 // note:
 // - we will show the api documentation even in production
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.UseHttpsRedirection();
-app.MapHealthChecks("/heath_checks");
 app.MapControllers();
+app.MapHealthChecks("/health_checks");
 
 app.Run();
