@@ -48,20 +48,20 @@ public class ProfilesController : ControllerBase
         return Ok(profileHero.Entity);
     }
 
-    [HttpGet("{profileId:guid}/social")]
+    [HttpGet("{profileId:guid}/link")]
     [ProducesResponseType(typeof(ProfileSocial), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetProfileSocial(Guid profileId)
+    public async Task<IActionResult> GetProfileLink(Guid profileId)
     {
         var profileSocial = await _profileService.GetProfileSocial(profileId);
 
         return Ok(profileSocial.Entity);
     }
 
-    [HttpGet("{profileId:guid}/person")]
+    [HttpGet("{profileId:guid}/info")]
     [ProducesResponseType(typeof(ProfilePersonResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetProfilePerson(Guid profileId)
+    public async Task<IActionResult> GetProfileInfo(Guid profileId)
     {
         var profile = await _profileService.GetProfile(profileId);
 
