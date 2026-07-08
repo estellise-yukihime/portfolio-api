@@ -11,7 +11,10 @@ public class Create_103_ProfileHero : Migration
             .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
             .WithColumn("ProfileId").AsInt32().NotNullable()
             .WithColumn("Head").AsString(1024).Nullable()
-            .WithColumn("Text").AsString(1024).Nullable();
+            .WithColumn("Text").AsString(1024).Nullable()
+            .WithColumn("Title").AsString(256).Nullable()
+            .WithColumn("State").AsString(256).Nullable()
+            .WithColumn("Status").AsString(256).Nullable();
 
         Create.ForeignKey("FK_ProfileHero_Profile")
             .FromTable("ProfileHero").ForeignColumn("ProfileId")

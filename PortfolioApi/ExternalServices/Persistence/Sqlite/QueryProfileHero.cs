@@ -18,7 +18,7 @@ public class QueryProfileHero : IQueryProfileHero
         await using var connection = _dbConnection.OpenConnection();
 
         const string sql = """
-                           select ProfileHero.Id, ProfileHero.ProfileId, ProfileHero.Head, ProfileHero.Text
+                           select ProfileHero.Id, ProfileHero.ProfileId, ProfileHero.Head, ProfileHero.Text, ProfileHero.Title, ProfileHero.State, ProfileHero.Status
                            from ProfileHero
                            join Profile on Profile.Id = ProfileHero.ProfileId
                            where Profile.ExternalId = @ExternalId

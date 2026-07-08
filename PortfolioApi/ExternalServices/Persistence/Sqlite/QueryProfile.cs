@@ -18,7 +18,7 @@ public class QueryProfile : IQueryProfile
         await using var connection = _dbConnection.OpenConnection();
 
         const string sql = """
-                           select Id, UserId, FirstName, LastName, Email, Photo, Title, State, Summary, CreatedAt, UpdatedAt
+                           select Id, UserId, FirstName, LastName, Email, Photo, Title, Stack, State, Summary, CreatedAt, UpdatedAt
                            from Profile
                            where ExternalId = @ExternalId
                            """;
@@ -31,8 +31,8 @@ public class QueryProfile : IQueryProfile
         await using var connection = _dbConnection.OpenConnection();
 
         const string sql = """
-                           insert into Profile (UserId, FirstName, LastName, Email, Photo, Title, State, Summary, CreatedAt, UpdatedAt)
-                           values (@UserId, @FirstName, @LastName, @Email, @Photo, @Title, @State, @Summary, @CreatedAt, @UpdatedAt);
+                           insert into Profile (UserId, FirstName, LastName, Email, Photo, Title, Stack, State, Summary, CreatedAt, UpdatedAt)
+                           values (@UserId, @FirstName, @LastName, @Email, @Photo, @Title, @Stack, @State, @Summary, @CreatedAt, @UpdatedAt);
                            select last_insert_rowid();
                            """;
 
@@ -50,6 +50,7 @@ public class QueryProfile : IQueryProfile
                                Email = @Email,
                                Photo = @Photo,
                                Title = @Title,
+                               Stack = @Stack,
                                State = @State,
                                Summary = @Summary,
                                UpdatedAt = @UpdatedAt

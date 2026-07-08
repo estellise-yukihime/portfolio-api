@@ -13,7 +13,10 @@ public class Insert_1003_ProfileHero : Migration
             {
                 ProfileId = 1,
                 Head = "I build <<text-primary,\"scalable,\">> <<text-secondary,\"reliable,\">> and <<text-accent,\"maintainable\">> systems",
-                Text = "A .NET Developer with 7+ years of experience designing, developing, and maintaining applications and services. <<line-through,\"I am lazy, I want to be rich, rich, rich!!!\">> Let me know your vision, and I'll show you the craft."
+                Text = "A .NET Developer with 7+ years of experience designing, developing, and maintaining applications and services. <<line-through,\"I am lazy, I want to be rich, rich, rich!!!\">> Let me know your vision, and I'll show you the craft.",
+                Title = "Software Developer · .NET Developer",
+                State = "Cebu",
+                Status = "Open to work"
             });
     }
 

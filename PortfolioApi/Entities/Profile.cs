@@ -9,6 +9,7 @@ public class Profile
     public string? Email { get; set; }
     public string? Photo { get; set; }
     public string? Title { get; set; }
+    public string? Stack { get; set; }
     public string? State { get; set; }
     public string? Summary { get; set; }
     public DateTime CreatedAt { get; set; }
