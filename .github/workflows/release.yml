@@ -1,0 +1,55 @@
+name: release.yml
+
+on:
+  release:
+    types: [ released ]
+
+jobs:
+  fetch:
+    runs-on: desperation
+    outputs:
+      rebuild: ${{ steps.download.outcome == 'failure' }}
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v6
+      - name: login registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: download image
+        id: download
+        continue-on-error: true
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          VERSION=${TAG#v}
+          docker pull ghcr.io/${{ github.repository }}:$VERSION
+
+          if [[ $? -ne 0 ]]; then
+            echo "::error failed to download image"
+            exit 1
+          fi
+
+  build:
+    needs: fetch
+    if: ${{ needs.fetch.outputs.rebuild == 'true' }}
+    uses: ./.github/workflows/prerelease.yml
+    secrets: inherit
+
+  deploy:
+    needs: [ fetch, build ]
+    if: ${{ always() && (needs.build.result == 'skipped' || needs.build.result == 'success') }}
+    runs-on: desperation
+    steps:
+      - uses: actions/checkout@v6
+      - name: compose up
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          VERSION=${TAG#v}
+          VERSION=$VERSION docker compose up -d
+
