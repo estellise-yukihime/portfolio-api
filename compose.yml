@@ -10,5 +10,3 @@ services:
     cpu_count: 1
     mem_limit: 512M
     mem_reservation: 256M
-    ports:
-      - "8081:8080"
