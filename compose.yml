@@ -4,8 +4,6 @@ services:
     build:
       context: .
       dockerfile: PortfolioApi/Dockerfile
-      tags:
-        - ghcr.io/snow-platform/portfolio-ui:${TAG}
       platforms:
         - linux/amd64
         - linux/arm64
