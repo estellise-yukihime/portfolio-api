@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/estellise-yukihime/portfolio-api:${VERSION}
+    image: ghcr.io/snow-platform/portfolio-api:${VERSION}
     build:
       context: .
       dockerfile: PortfolioApi/Dockerfile
