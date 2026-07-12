@@ -6,12 +6,8 @@ on:
   workflow_call:
 
 jobs:
-  check:
-    uses: ./.github/workflows/prerelease-check-version.yml
-
   build:
     name: build & upload
-    needs: check
     runs-on: ubuntu-latest
     permissions:
       contents: read
