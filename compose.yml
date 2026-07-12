@@ -1,8 +1,16 @@
 services:
   app:
     image: ghcr.io/estellise-yukihime/portfolio-api:${VERSION}
+    build:
+      context: .
+      dockerfile: PortfolioApi/Dockerfile
+      tags:
+        - ghcr.io/snow-platform/portfolio-ui:${TAG}
+      platforms:
+        - linux/amd64
+        - linux/arm64
     cpu_count: 1
     mem_limit: 512M
     mem_reservation: 256M
     ports:
-      - "8081:8081"
+      - "8081:8080"

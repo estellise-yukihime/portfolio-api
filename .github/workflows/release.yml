@@ -8,7 +8,7 @@ jobs:
   fetch:
     runs-on: desperation
     outputs:
-      rebuild: ${{ steps.download.outcome == 'failure' }}
+      rebuild: ${{ steps.inspect.outcome == 'failure' }}
     permissions:
       contents: read
       packages: read
@@ -20,14 +20,14 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: download image
-        id: download
+      - name: inspect image
+        id: inspect
         continue-on-error: true
         env:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           VERSION=${TAG#v}
-          docker pull ghcr.io/${{ github.repository }}:$VERSION
+          docker buildx imagetools inspect ghcr.io/${{ github.repository }}:$VERSION
 
           if [[ $? -ne 0 ]]; then
             echo "::error failed to download image"
@@ -42,14 +42,14 @@ jobs:
 
   deploy:
     needs: [ fetch, build ]
-    if: ${{ always() && (needs.build.result == 'skipped' || needs.build.result == 'success') }}
+    if: ${{ always() && (needs.fetch.result == 'success' || (needs.build.result == 'skipped' || needs.build.result == 'success')) }}
     runs-on: desperation
     steps:
       - uses: actions/checkout@v6
       - name: compose up
         env:
-          TAG: ${{ github.event.release.tag_name }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
         run: |
-          VERSION=${TAG#v}
+          VERSION=${TAG_NAME#v}
           VERSION=$VERSION docker compose up -d
 
