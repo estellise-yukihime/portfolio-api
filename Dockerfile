@@ -1,7 +1,6 @@
 
-ARG VERSION
-
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build
+ARG VERSION
 COPY . /src
 WORKDIR /src
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages dotnet publish PortfolioApi/PortfolioApi.csproj --os linux --arch x64 --output /app -p:Version=$VERSION
