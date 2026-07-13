@@ -18,6 +18,9 @@ RUN adduser \
     --no-create-home \
     --uid "10001" \
     appuser
+
+RUN mkdir data
+RUN chown -R appuser:appuser data
 USER appuser
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "PortfolioApi.dll"]

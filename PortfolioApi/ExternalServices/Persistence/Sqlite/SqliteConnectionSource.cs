@@ -6,6 +6,6 @@ public class SqliteConnectionSource : IDbConnection<SqliteConnection>
 {
     public SqliteConnection OpenConnection()
     {
-        return new SqliteConnection("Data Source=main.db");
+        return new SqliteConnection("Data Source=data/main.db");
     }
 }

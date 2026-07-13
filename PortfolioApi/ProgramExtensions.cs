@@ -83,7 +83,7 @@ public static class ProgramExtensions
                 .ConfigureRunner(x =>
                 {
                     x.AddSQLite(compatibilityMode: CompatibilityMode.LOOSE)
-                        .WithGlobalConnectionString("Data Source=main.db")
+                        .WithGlobalConnectionString("Data Source=data/main.db")
                         .ScanIn(typeof(Program).Assembly).For.Migrations();
                 });
 
