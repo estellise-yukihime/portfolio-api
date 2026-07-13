@@ -15,6 +15,7 @@ RUN adduser \
     --shell "/sbin/nologin" \
     --no-create-home \
     --uid "10001" \
+    appuser
 USER appuser
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "PortfolioApi.dll"]
