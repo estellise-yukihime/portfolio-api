@@ -12,6 +12,7 @@ services:
     mem_reservation: 256M
     networks:
       - proxy
+
 networks:
   proxy:
     external: true
