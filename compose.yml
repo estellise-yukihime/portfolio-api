@@ -1,6 +1,7 @@
 services:
   porfolio-api:
     image: ghcr.io/snow-platform/portfolio-api:${VERSION}
+    restart: unless-stopped
     build:
       context: .
       dockerfile: PortfolioApi/Dockerfile
