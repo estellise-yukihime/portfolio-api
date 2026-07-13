@@ -1,5 +1,5 @@
 services:
-  app:
+  porfolio-api:
     image: ghcr.io/snow-platform/portfolio-api:${VERSION}
     build:
       context: .
@@ -10,3 +10,8 @@ services:
     cpu_count: 1
     mem_limit: 512M
     mem_reservation: 256M
+    networks:
+      - proxy
+networks:
+  proxy:
+    external: true
