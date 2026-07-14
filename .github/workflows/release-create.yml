@@ -41,15 +41,15 @@ jobs:
   release:
     needs: [tag, check]
     runs-on: ubuntu-latest
-    permissions: 
-      contents: write
     steps:
       - uses: actions/checkout@v6
         with: 
           fetch-tags: true
       - name: create release
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # This requires a PAT because a workflow that is triggered by release cannot run 
+          # if the release is created by GITHUB_TOKEN
+          GH_TOKEN: ${{ secrets.YUKI_TOKEN }}
           TAG: ${{ needs.tag.outputs.tag }}
         run: |
           gh release create $TAG --generate-notes --verify-tag
