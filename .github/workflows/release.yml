@@ -5,13 +5,14 @@ on:
     types: [ released ]
 
 jobs:
-  fetch:
-    runs-on: desperation
-    outputs:
-      rebuild: ${{ steps.inspect.outcome == 'failure' }}
+  build:
+    name: build & upload
+    runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: read
+      packages: write
+      attestations: write
+      id-token: write
     steps:
       - uses: actions/checkout@v6
       - name: login registry
@@ -20,34 +21,41 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: inspect image
-        id: inspect
-        continue-on-error: true
+      - name: metadata
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+      - name: version
+        id: version
         env:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           VERSION=${TAG#v}
-          docker buildx imagetools inspect ghcr.io/${{ github.repository }}:$VERSION
-
-          if [[ $? -ne 0 ]]; then
-            echo "::error failed to download image"
-            exit 1
-          fi
-
-  build:
-    needs: fetch
-    if: ${{ needs.fetch.outputs.rebuild == 'true' }}
-    uses: ./.github/workflows/prerelease.yml
-    permissions:
-      contents: read
-      packages: write
-      attestations: write
-      id-token: write
-    secrets: inherit
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - name: upload image
+        id: push
+        uses: docker/build-push-action@v7
+        with:
+          build-args: VERSION=${{ steps.version.outputs.version }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          annotations: ${{ steps.meta.outputs.annotations }}
+      - name: artifact attestation
+        uses: actions/attest@v4
+        with:
+          subject-name: ghcr.io/${{ github.repository }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
 
   deploy:
-    needs: [ fetch, build ]
-    if: ${{ always() && (needs.fetch.result == 'success' || (needs.build.result == 'skipped' || needs.build.result == 'success')) }}
+    needs: build
     runs-on: desperation
     steps:
       - uses: actions/checkout@v6

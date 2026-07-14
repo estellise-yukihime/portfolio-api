@@ -1,0 +1,51 @@
+name: "release: create on push"
+
+on:
+  push: 
+    branches:
+      - main
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    outputs: 
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v6
+        with: 
+          fetch-tags: true
+      - name: latest tag
+        id: tag
+        run: |
+          tag=git describe --tags $(git rev-list --tags --max-count=1)
+          echo $tag
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+  
+  check:
+    runs-on: ubuntu-latest
+    needs: tag
+    steps:
+      - uses: actions/checkout@v6
+        with: 
+          fetch-tags: true
+      - name: check release 
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.tag.outputs.tag }}
+        run: |
+          if gh verify view $TAG; then
+            echo "::error::The release $TAG already exists"
+            exit 0
+          fi
+  
+  release:
+    needs: [tag, check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: actions/checkout@v6
+      - name: create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ needs.tag.outputs.tag }}
+        run: |
+          gh release create $TAG --generate-notes --verify-tag
