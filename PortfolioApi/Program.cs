@@ -19,13 +19,9 @@ builder.Services.AddCors(x =>
 {
     x.AddDefaultPolicy(c =>
     {
-        // c.WithOrigins(builder.Configuration.GetSection("Cors:Origins").Get<string[]>()!)
-        //     .AllowAnyHeader()
-        //     .AllowAnyMethod();
-
-        c.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
+        c.WithOrigins(builder.Configuration.GetSection("Cors:Origins").Get<string[]>()!)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 builder.Services.AddSimpleLogging();
