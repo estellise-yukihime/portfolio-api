@@ -17,8 +17,8 @@ jobs:
       - name: latest tag
         id: tag
         run: |
-          tag=git describe --tags $(git rev-list --tags --max-count=1)
-          echo $tag
+          tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "::notice title=Tag:: $tag"
           echo "tag=$tag" >> $GITHUB_OUTPUT
   
   check:
