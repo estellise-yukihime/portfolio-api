@@ -4,6 +4,8 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddProblemDetails();
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -26,10 +28,12 @@ builder.Services.AddCors(x =>
 });
 builder.Services.AddSimpleLogging();
 builder.Services.AddSimpleVersioning();
-builder.Services.AddFluentMigration();
 builder.Services.AddSqlDb();
 builder.Services.AddDefaultServices();
 builder.Services.AddExternalServicesPersistence();
+
+builder.AddFluentMigration();
+builder.AddOptions();
 
 // health checks
 builder.Services.AddHealthChecks();
@@ -39,6 +43,7 @@ var app = builder.Build();
 app.UseHttpLogging();
 app.UseHttpsRedirection();
 app.UseCors();
+app.UseExceptionHandler("/error");
 
 // note:
 // - we will show the api documentation even in production

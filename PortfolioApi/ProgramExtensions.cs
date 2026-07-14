@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging.Console;
 using Microsoft.IdentityModel.Tokens;
 using PortfolioApi.ExternalServices.Persistence;
 using PortfolioApi.ExternalServices.Persistence.Sqlite;
+using PortfolioApi.Options;
 
 namespace PortfolioApi;
 
@@ -77,24 +78,37 @@ public static class ProgramExtensions
             return services;
         }
 
-        public IServiceCollection AddFluentMigration()
-        {
-            services.AddFluentMigratorCore()
-                .ConfigureRunner(x =>
-                {
-                    x.AddSQLite(compatibilityMode: CompatibilityMode.LOOSE)
-                        .WithGlobalConnectionString("Data Source=data/main.db")
-                        .ScanIn(typeof(Program).Assembly).For.Migrations();
-                });
-
-            return services;
-        }
-
         public IServiceCollection AddSqlDb()
         {
             services.AddSingleton<IDbConnection<SqliteConnection>, SqliteConnectionSource>();
 
             return services;
+        }
+    }
+
+    extension(IHostApplicationBuilder builder)
+    {
+        public IHostApplicationBuilder AddFluentMigration()
+        {
+            var connection = builder.Configuration.GetConnectionString("Main");
+
+            builder.Services
+                .AddFluentMigratorCore()
+                .ConfigureRunner(x =>
+                {
+                    x.AddSQLite(compatibilityMode: CompatibilityMode.LOOSE)
+                        .WithGlobalConnectionString(connection)
+                        .ScanIn(typeof(Program).Assembly).For.Migrations();
+                });
+
+            return builder;
+        }
+
+        public IHostApplicationBuilder AddOptions()
+        {
+            builder.Services.Configure<ConnectionSource>(builder.Configuration.GetSection("ConnectionStrings"));
+
+            return builder;
         }
     }
 }
