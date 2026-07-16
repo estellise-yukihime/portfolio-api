@@ -18,12 +18,19 @@ public class ProfilesController : ControllerBase
         _profileService = profileService;
     }
 
+    [HttpGet("cards")]
+    [ProducesResponseType(typeof(IEnumerable<Entities.Profile>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetProfiles()
+    {
+        return Ok();
+    }
+
     [HttpGet("{profileId:guid}")]
     [ProducesResponseType(typeof(Entities.Profile), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetProfile(Guid profileId)
     {
-        var profile = await _profileService.GetProfile(profileId);
+        var profile = await _profileService.GetProfileNavi(profileId);
 
         if (profile is ProducesEntityFail<Entities.Profile>)
         {
@@ -31,6 +38,21 @@ public class ProfilesController : ControllerBase
         }
 
         return Ok(profile.Entity);
+    }
+
+    [HttpGet("{profileId:guid}/navi")]
+    [ProducesResponseType(typeof(ProfilePersonResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetProfileNavi(Guid profileId)
+    {
+        var profile = await _profileService.GetProfileNavi(profileId);
+
+        if (profile is ProducesEntityFail<Entities.Profile>)
+        {
+            return Problem(statusCode: profile.StatusCode, title: profile.Error, detail: profile.Description);
+        }
+
+        return Ok(new ProfilePersonResponse(profile.Entity!));
     }
 
     [HttpGet("{profileId:guid}/hero")]
@@ -56,20 +78,5 @@ public class ProfilesController : ControllerBase
         var profileSocial = await _profileService.GetProfileSocial(profileId);
 
         return Ok(profileSocial.Entity);
-    }
-
-    [HttpGet("{profileId:guid}/info")]
-    [ProducesResponseType(typeof(ProfilePersonResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetProfileInfo(Guid profileId)
-    {
-        var profile = await _profileService.GetProfile(profileId);
-
-        if (profile is ProducesEntityFail<Entities.Profile>)
-        {
-            return Problem(statusCode: profile.StatusCode, title: profile.Error, detail: profile.Description);
-        }
-
-        return Ok(new ProfilePersonResponse(profile.Entity!));
     }
 }
