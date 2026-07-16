@@ -18,9 +18,9 @@ public class DefaultProfileService : IProfileService
         _queryProfileSocial = queryProfileSocial;
     }
 
-    public async Task<ProducesEntity<Profile>> GetProfile(Guid profileId)
+    public async Task<ProducesEntity<Profile>> GetProfileNavi(Guid profileId)
     {
-        var profile = await _queryProfile.FindFromExternalId(profileId);
+        var profile = await _queryProfile.FindNaviFromExternalId(profileId);
 
         if (profile is null)
         {

@@ -4,7 +4,7 @@ namespace PortfolioApi.Services;
 
 public interface IProfileService
 {
-    Task<ProducesEntity<Profile>> GetProfile(Guid profileId);
+    Task<ProducesEntity<Profile>> GetProfileNavi(Guid profileId);
     Task<ProducesEntity<ProfileHero>> GetProfileHero(Guid profileId);
     Task<ProducesEntity<List<ProfileSocial>>> GetProfileSocial(Guid profileId);
 }
