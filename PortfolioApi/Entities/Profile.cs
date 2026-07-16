@@ -11,7 +11,10 @@ public class Profile
     public string? Title { get; set; }
     public string? Stack { get; set; }
     public string? State { get; set; }
+    public string? About { get; set; }
     public string? Summary { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+
+    public List<ProfileSkill> Skills { get; set; } = [];
 }
