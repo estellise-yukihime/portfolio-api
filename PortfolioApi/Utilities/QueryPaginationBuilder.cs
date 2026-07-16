@@ -1,0 +1,88 @@
+using Dapper;
+using PortfolioApi.EntityValueObject;
+using PortfolioApi.Extensions;
+
+namespace PortfolioApi.Utilities;
+
+public class QueryPaginationBuilder
+{
+    private readonly Pagination _pagination;
+    private readonly DynamicParameters _parameters;
+
+    private string? _sortBy;
+    private string? _sortDi;
+    private string? _filter;
+
+    public QueryPaginationBuilder(Pagination pagination, DynamicParameters parameters)
+    {
+        _pagination = pagination;
+        _parameters = parameters;
+    }
+
+    public QueryPaginationBuilder ApplySize()
+    {
+        _parameters.Add("@Size", _pagination.SanitizeSize());
+
+        return this;
+    }
+
+    public QueryPaginationBuilder ApplyOffset()
+    {
+        _parameters.Add("@Offset", (_pagination.SanitizePage() - 1) * _pagination.SanitizeSize());
+
+        return this;
+    }
+
+    public QueryPaginationBuilder ApplySearch()
+    {
+        _parameters.Add("@Search", _pagination.Search);
+
+        return this;
+    }
+
+    public QueryPaginationBuilder InsertSortBy(params string[] allowed)
+    {
+        _sortBy = _pagination.SanitizeSortBy(allowed);
+
+        return this;
+    }
+
+    public QueryPaginationBuilder InsertSortDi()
+    {
+        _sortDi = _pagination.SanitizeSortDirection();
+
+        return this;
+    }
+
+    public QueryPaginationBuilder InsertFilter(params string[] allowed)
+    {
+        var sanitize = _pagination.SanitizeFilters(allowed);
+
+        if (sanitize?.Count > 0)
+        {
+            _filter = sanitize.ToQueryWithDynamicParameters(_parameters);
+        }
+
+        return this;
+    }
+
+    public string Build(string query)
+    {
+        if (_sortBy is not null)
+        {
+            query = query.Replace("$Sort", _sortBy);
+        }
+
+        if (_sortDi is not null)
+        {
+            query = query.Replace("$Direction", _sortDi);
+        }
+
+        if (_filter is not null)
+        {
+            query = query.Replace("$Filter", _filter);
+        }
+
+        return query;
+    }
+}
