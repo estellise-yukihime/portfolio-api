@@ -18,6 +18,7 @@ public class Create_102_Profile : Migration
             .WithColumn("Title").AsString(256).Nullable()
             .WithColumn("Stack").AsString(256).Nullable()
             .WithColumn("State").AsString(256).Nullable()
+            .WithColumn("About").AsString(int.MaxValue).Nullable()
             .WithColumn("Summary").AsString(int.MaxValue).Nullable()
             .WithColumn("CreatedAt").AsDateTime2().NotNullable()
             .WithColumn("UpdatedAt").AsDateTime2().NotNullable();

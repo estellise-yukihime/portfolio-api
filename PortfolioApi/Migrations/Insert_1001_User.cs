@@ -21,6 +21,9 @@ public class Insert_1001_User : Migration
     public override void Down()
     {
         Delete.FromTable("User")
-            .Row(new { Email = "estellise.caballero@gmail.com" });
+            .Row(new
+            {
+                Email = "estellise.caballero@gmail.com"
+            });
     }
 }
