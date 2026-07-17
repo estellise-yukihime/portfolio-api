@@ -11,7 +11,9 @@ public static class ProgramExtensionsForExternalServices
         {
             services.AddScoped<IQueryUser, QueryUser>();
             services.AddScoped<IQueryProfile, QueryProfile>();
+            services.AddScoped<IQueryProfileNavi, QueryProfileNavi>();
             services.AddScoped<IQueryProfileHero, QueryProfileHero>();
+            services.AddScoped<IQueryProfileCard, QueryProfileCard>();
             services.AddScoped<IQueryProfileSocial, QueryProfileSocial>();
 
             return services;

@@ -10,7 +10,9 @@ public static class ProgramExtensionsForServices
         public IServiceCollection AddDefaultServices()
         {
             services.AddScoped<IUserService, DefaultUserService>();
-            services.AddScoped<IProfileService, DefaultProfileService>();
+            services.AddScoped<IProfileNaviService, DefaultProfileNaviService>();
+            services.AddScoped<IProfileHeroService, DefaultProfileHeroService>();
+            services.AddScoped<IProfileCardService, DefaultProfileCardService>();
 
             return services;
         }
