@@ -5,9 +5,7 @@ using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using PortfolioApi.DTO.Request;
-using PortfolioApi.DTO.Response;
-
+using PortfolioApi.DTO;
 namespace PortfolioApi.Controllers.Token;
 
 [ApiController]
@@ -19,9 +17,9 @@ namespace PortfolioApi.Controllers.Token;
 public class JwtGeneratorController : ControllerBase
 {
     [HttpPost]
-    public IActionResult GenerateToken(JwtGenerateRequest jwtGenerate)
+    public IActionResult GenerateToken(JwtTokenCreate jwtTokenCreate)
     {
-        var permissions = jwtGenerate.Permissions;
+        var permissions = jwtTokenCreate.Permissions;
         var permissionsClaims = default(List<Claim>);
 
         if (permissions != null)
@@ -44,7 +42,7 @@ public class JwtGeneratorController : ControllerBase
         var tokenString = new JwtSecurityTokenHandler()
             .WriteToken(token);
 
-        return Ok(new JwtGenerateResponse
+        return Ok(new JwtTokenCreated
         {
             TokenType = "Bearer",
             AccessToken = tokenString,

@@ -1,6 +1,5 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using PortfolioApi.DTO.Response;
 using PortfolioApi.Services;
 
 namespace PortfolioApi.Controllers.User;
@@ -33,6 +32,11 @@ public class UsersController : ControllerBase
             return Problem(detail: user.Description, statusCode: user.StatusCode, title: user.Error);
         }
 
-        return Ok(new UserResponse(user.Entity!));
+        return Ok(new
+        {
+            user.Entity!.Email,
+            user.Entity!.CreatedAt,
+            user.Entity!.UpdatedAt
+        });
     }
 }
