@@ -59,12 +59,7 @@ public class QueryProfileCard : IQueryProfileCard
         var items = await connection.QueryAsync<Profile, ProfileSkill, Profile>(sqlItems,
             (p, sk) =>
             {
-                p.Skills ??= [];
-
-                if (sk.Id is not 0)
-                {
-                    p.Skills.Add(sk);
-                }
+                p.Skills = [sk];
 
                 return p;
             }, parametersForItems, splitOn: "Id");

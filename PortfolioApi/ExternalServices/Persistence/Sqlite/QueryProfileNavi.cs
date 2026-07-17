@@ -20,7 +20,7 @@ public class QueryProfileNavi : IQueryProfileNavi
         const string sql = """
                            select p.Id, p.ExternalId, p.FirstName, p.LastName, cv.Id, cv.ProfileId, cv.CV, ps.Id, ps.ProfileId, ps.Name, ps.Link
                            from Profile p
-                           left join (select from ProfileCV where id in (select max(id) from ProfileCV group by ProfileId)) cv
+                           left join (select * from ProfileCV where id in (select max(id) from ProfileCV group by ProfileId)) cv
                                on p.Id = cv.ProfileId
                            left join ProfileSocial ps 
                                on p.Id = ps.ProfileId
@@ -34,16 +34,19 @@ public class QueryProfileNavi : IQueryProfileNavi
                 profile.Socials = [social];
 
                 return profile;
-            }, splitOn: "");
+            }, new
+            {
+                ExternalId = uuid.ToString()
+            },
+            splitOn: "Id,Id");
 
         var corr = item.GroupBy(x => x.Id)
             .Select(x =>
             {
                 var pf = x.First();
                 pf.CV = pf.CV;
-                pf.Skills = x.Where(c => c.Skills?.Count > 0)
-                    .Select(c => c.Skills!)
-                    .Select(c => c[0])
+                pf.Socials = x.Where(c => c.Socials?.Count > 0)
+                    .Select(c => c.Socials![0])
                     .ToList();
 
                 return pf;
