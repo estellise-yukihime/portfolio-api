@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioApi.DTO;
 using PortfolioApi.EntityValueObject;
 using PortfolioApi.Services;
 
@@ -18,7 +19,7 @@ public class ProfilesCardController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(Paginated<Entities.Profile>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Paginated<ProfileCard>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProfiles([FromQuery] Pagination pagination)
     {
         var profiles = await _profileCardService.GetProfilesCard(pagination);
