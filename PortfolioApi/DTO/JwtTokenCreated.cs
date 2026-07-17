@@ -1,6 +1,6 @@
-namespace PortfolioApi.DTO.Response;
+namespace PortfolioApi.DTO;
 
-public class JwtGenerateResponse
+public class JwtTokenCreated
 {
     public string? TokenType { get; set; }
     public string? AccessToken { get; set; }
