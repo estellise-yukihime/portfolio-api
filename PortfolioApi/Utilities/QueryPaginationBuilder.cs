@@ -68,20 +68,9 @@ public class QueryPaginationBuilder
 
     public string Build(string query)
     {
-        if (_sortBy is not null)
-        {
-            query = query.Replace("$Sort", _sortBy);
-        }
-
-        if (_sortDi is not null)
-        {
-            query = query.Replace("$Direction", _sortDi);
-        }
-
-        if (_filter is not null)
-        {
-            query = query.Replace("$Filter", _filter);
-        }
+        query = query.Replace("$Sort", _sortBy ?? "");
+        query = query.Replace("$Direction", _sortDi ?? "");
+        query = query.Replace("$Filter", _filter ?? "true");
 
         return query;
     }
