@@ -7,7 +7,7 @@ namespace PortfolioApi.Controllers.Profile;
 
 [ApiVersion(1)]
 [ApiController]
-[Route("api/v{version:apiVersion}/profiles/cards")]
+[Route("api/v{version:apiVersion}/profiles/card")]
 public class ProfilesCardController : ControllerBase
 {
     private readonly IProfileCardService _profileCardService;
