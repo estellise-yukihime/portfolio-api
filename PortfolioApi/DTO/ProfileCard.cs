@@ -7,6 +7,7 @@ public class ProfileCard
     public ProfileCard(Profile profile)
     {
         Id = profile.Id;
+        ExternalId = profile.ExternalId;
         FirstName = profile.FirstName;
         LastName = profile.LastName;
         Email = profile.Email;
@@ -21,6 +22,7 @@ public class ProfileCard
     }
 
     public int Id { get; set; }
+    public string? ExternalId { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? Email { get; set; }
