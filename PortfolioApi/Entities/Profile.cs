@@ -16,5 +16,7 @@ public class Profile
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 
-    public List<ProfileSkill> Skills { get; set; } = [];
+    public ProfileCV? CV { get; set; }
+    public List<ProfileSkill>? Skills { get; set; }
+    public List<ProfileSocial>? Socials { get; set; }
 }
