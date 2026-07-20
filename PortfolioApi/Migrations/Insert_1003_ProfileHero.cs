@@ -12,7 +12,7 @@ public class Insert_1003_ProfileHero : Migration
             .Row(new
             {
                 ProfileId = 1,
-                Head = "I build <<text-primary,\"scalable,\">> <<text-secondary,\"reliable,\">> and <<text-accent,\"maintainable\">> systems",
+                Head = "I build <<text-primary,\"reliable,\">> <<text-secondary,\"scalable,\">> and <<text-accent,\"maintainable\">> systems",
                 Text = "A .NET Developer with 7+ years of experience designing, developing, and maintaining applications and services. <<line-through,text-white,\"I<>wan<>to<>be<>rich!!!\">> Let me know your vision, and I'll show you the craft.",
                 Title = ".NET Developer",
                 State = "Cebu",
