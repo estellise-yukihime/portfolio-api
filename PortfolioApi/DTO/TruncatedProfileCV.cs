@@ -13,5 +13,5 @@ public class TruncatedProfileCV
 
     public int Id { get; set; }
     public string? CV { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 }
