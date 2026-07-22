@@ -15,6 +15,7 @@ public static class ProgramExtensionsForExternalServices
             services.AddScoped<IQueryProfileHero, QueryProfileHero>();
             services.AddScoped<IQueryProfileCard, QueryProfileCard>();
             services.AddScoped<IQueryProfileSocial, QueryProfileSocial>();
+            services.AddScoped<IQueryProfilePlus, QueryProfilePlus>();
 
             return services;
         }

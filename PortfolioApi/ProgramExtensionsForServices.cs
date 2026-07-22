@@ -13,6 +13,7 @@ public static class ProgramExtensionsForServices
             services.AddScoped<IProfileNaviService, DefaultProfileNaviService>();
             services.AddScoped<IProfileHeroService, DefaultProfileHeroService>();
             services.AddScoped<IProfileCardService, DefaultProfileCardService>();
+            services.AddScoped<IProfilePlusService, DefaultProfilePlusService>();
 
             return services;
         }
