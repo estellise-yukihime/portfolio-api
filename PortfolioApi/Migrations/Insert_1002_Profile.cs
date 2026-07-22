@@ -18,11 +18,11 @@ public class Insert_1002_Profile : Migration
                 Email = "apply.estellise.caballero@gmail.com",
                 Photo = "https://profile.r2.carlocaballero.com/imijs/portrait/wqe.jpg",
                 Title = "Senior Software Developer",
-                Stack = ".NET",
+                Stack = "NET Developer",
                 State = "Cebu",
                 About = "A software developer of 7+ years building reliable, maintainable, and scalable systems.",
                 Summary =
-                    "A software developer specializing in C# and .NET technologies, with expertise in building .NET services and APIs. I\ndesign, develop, and maintain .NET applications and APIs that are efficient, scalable, reliable, and maintainable",
+                    "A software developer specializing in C# and .NET technologies, with expertise in building .NET services and APIs. I\ndesign, develop, and maintain .NET applications and APIs that are efficient, reliable, maintainable, and scalable.",
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             });
