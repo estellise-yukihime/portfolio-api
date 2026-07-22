@@ -18,6 +18,9 @@ public class Profile
     public DateTime UpdatedAt { get; set; }
 
     public ProfileCV? CV { get; set; }
+    public List<ProfileCareer>? Career { get; set; }
     public List<ProfileSkill>? Skills { get; set; }
+    public List<ProfileCertificate>? Certificates { get; set; }
+    public List<ProfileEducation>? Educations { get; set; }
     public List<ProfileSocial>? Socials { get; set; }
 }
