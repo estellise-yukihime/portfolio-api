@@ -6,7 +6,6 @@ public class ProfileCard
 {
     public ProfileCard(Profile profile)
     {
-        Id = profile.Id;
         ExternalId = profile.ExternalId;
         FirstName = profile.FirstName;
         LastName = profile.LastName;
@@ -18,10 +17,9 @@ public class ProfileCard
         CreatedAt = profile.CreatedAt;
         UpdatedAt = profile.UpdatedAt;
 
-        Skills = profile.Skills;
+        Skills = profile.Skills?.ConvertAll(x => new TruncatedProfileSkill(x));
     }
 
-    public int Id { get; set; }
     public string? ExternalId { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
@@ -33,5 +31,5 @@ public class ProfileCard
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 
-    public List<ProfileSkill>? Skills { get; set; }
+    public List<TruncatedProfileSkill>? Skills { get; set; }
 }
