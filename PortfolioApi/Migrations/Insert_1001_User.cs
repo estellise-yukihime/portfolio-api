@@ -3,7 +3,7 @@ using PortfolioApi.Entities;
 
 namespace PortfolioApi.Migrations;
 
-// Format: Migration number from 1000+ and 1500 is insertion, update, and deletion or records
+// format: migration number from 1000+ and 1500 is insertion, update, and deletion of records
 [Migration(1001, "insert default user")]
 public class Insert_1001_User : Migration
 {
