@@ -1,0 +1,6 @@
+# claude
+.claude
+
+# rider
+.idea
+*.sln.DotSettings*
