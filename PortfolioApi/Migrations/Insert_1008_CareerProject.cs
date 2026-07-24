@@ -20,7 +20,7 @@ public class Insert_1008_CareerProject : Migration
                                   automate checks, builds, tests, and deployment workflows across websites, web APIs, 
                                   and services to Azure servers.
                                   """,
-                    Significance = 0.85f
+                    Significance = 0.88f
                 },
                 new
                 {
@@ -34,7 +34,7 @@ public class Insert_1008_CareerProject : Migration
                                   incoming InComm message types to dedicated handlers, secured with JWT authentication 
                                   and policy-based authorization.
                                   """,
-                    Significance = 0.9f
+                    Significance = 0.91f
                 },
                 new
                 {
@@ -49,7 +49,7 @@ public class Insert_1008_CareerProject : Migration
                                    abstracting each banking implementation behind a standard interface, 
                                    secured via custom HMAC-based authentication.
                                   """,
-                    Significance = 0.95f
+                    Significance = 0.97f
                 },
                 new
                 {
@@ -63,7 +63,7 @@ public class Insert_1008_CareerProject : Migration
                                   I'm responsible for the the API's architecture, feature development, 
                                   bug fixes, and test coverage.
                                   """,
-                    Significance = 0.9f
+                    Significance = 0.89f
                 },
                 new
                 {
@@ -77,7 +77,7 @@ public class Insert_1008_CareerProject : Migration
                                   I focus on implementing features aligned with business requirements, bug fixes, 
                                   test coverage and collaborating with the team to improve the application.
                                   """,
-                    Significance = 0.7f
+                    Significance = 0.81f
                 },
                 new
                 {
@@ -104,7 +104,7 @@ public class Insert_1008_CareerProject : Migration
                                   reusable components, utilities, and business logic into a single source of truth 
                                   for rapid development and deployment across partners.
                                   """,
-                    Significance = 0.7f
+                    Significance = 0.82f
                 },
                 new
                 {
@@ -129,7 +129,7 @@ public class Insert_1008_CareerProject : Migration
                                   for heavy machinery products using .NET Web API and SQL Server, enabling platform 
                                   integration for partner and third-party dealers.
                                   """,
-                    Significance = 0.8f
+                    Significance = 0.80f
                 },
                 new
                 {
@@ -141,7 +141,7 @@ public class Insert_1008_CareerProject : Migration
                                   for managing new and pre-owned heavy machinery, featuring detailed machine listings, 
                                   a booking system, and tools for generating quotes, brochures, and reports.
                                   """,
-                    Significance = 0.7f
+                    Significance = 0.78f
                 },
                 new
                 {
@@ -179,7 +179,7 @@ public class Insert_1008_CareerProject : Migration
                                   I developed hyper-casual mobile games in collaboration with Japanese clients and teams, 
                                   building game systems and content with Unity3D and C#.
                                   """,
-                    Significance = 0.6f
+                    Significance = 0.85f
                 },
                 new
                 {
@@ -190,7 +190,7 @@ public class Insert_1008_CareerProject : Migration
                                   I maintained and developed a test application for high-school and college exams, 
                                   delivering features for exam delivery and content management.
                                   """,
-                    Significance = 0.65f
+                    Significance = 0.78f
                 },
                 new
                 {
@@ -202,7 +202,7 @@ public class Insert_1008_CareerProject : Migration
                                   back-end servers, using .NET, Java, and Python with Flask, 
                                   backed by Datastore for database management.
                                   """,
-                    Significance = 0.85f
+                    Significance = 0.82f
                 },
 
                 // Tudlo Innovation Solutions Inc
@@ -216,7 +216,7 @@ public class Insert_1008_CareerProject : Migration
                                   planning, and feature implementation — most notably a visualization of a member 
                                   referral system and authentication/authorization mechanisms.
                                   """,
-                    Significance = 0.6f
+                    Significance = 0.77f
                 },
                 new
                 {
