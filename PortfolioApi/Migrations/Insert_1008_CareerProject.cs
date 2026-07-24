@@ -117,7 +117,7 @@ public class Insert_1008_CareerProject : Migration
                                   high-throughput webhook processing (thousands of records per minute), 
                                   and automated SMS/email client notifications.
                                   """,
-                    Significance = 0.7f
+                    Significance = 0.85f
                 },
                 new
                 {
