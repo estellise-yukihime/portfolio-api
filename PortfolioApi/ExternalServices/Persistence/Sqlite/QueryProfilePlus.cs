@@ -57,25 +57,9 @@ public class QueryProfilePlus : IQueryProfilePlus
                                         left join CareerProject cp on pc.Id = cp.CareerId
                                where p.ExternalId = @ExternalId;
                                """;
-        const string queryPi = """
-                               select pi.*
-                               from ProjectImage pi
-                                        inner join CareerProject cp on pi.ProjectId = cp.Id
-                                        inner join ProfileCareer pc on cp.CareerId = pc.Id
-                                        inner join Profile p on pc.ProfileId = p.Id
-                               where p.ExternalId = @ExternalId;
-                               """;
-        const string queryPt = """
-                               select pt.*
-                               from ProjectTechnology pt
-                                        inner join CareerProject cp on pt.ProjectId = cp.Id
-                                        inner join ProfileCareer pc on cp.CareerId = pc.Id
-                                        inner join Profile p on pc.ProfileId = p.Id
-                               where p.ExternalId = @ExternalId;
-                               """;
 
         await using var items = await connection.QueryMultipleAsync(
-            $"{queryP}{queryPv}{queryPs}{queryPl}{queryPc}{queryPe}{queryPj}{queryPi}{queryPt}",
+            $"{queryP}{queryPv}{queryPs}{queryPl}{queryPc}{queryPe}{queryPj}",
             new { ExternalId = profileId.ToString() });
 
         var profile = items.Read<Profile>()
@@ -96,10 +80,6 @@ public class QueryProfilePlus : IQueryProfilePlus
                 return career;
             }, splitOn: "Id")
             .ToList();
-        var projectIm = items.Read<ProjectImage>()
-            .ToList();
-        var projectTk = items.Read<ProjectTechnology>()
-            .ToList();
 
         if (profile is null)
         {
@@ -111,15 +91,7 @@ public class QueryProfilePlus : IQueryProfilePlus
             {
                 var item = x.First();
                 item.Projects = x.Select(c => c.Projects!.Single())
-                    .Select(c =>
-                    {
-                        c.Imijs = projectIm.Where(v => v.ProjectId == c.Id)
-                            .ToList();
-                        c.Tecks = projectTk.Where(v => v.ProjectId == c.Id)
-                            .ToList();
-
-                        return c;
-                    })
+                    .Select(c => c)
                     .ToList();
 
                 return item;
